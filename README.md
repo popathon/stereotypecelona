@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 A jQuery plugin for creating pretty, dynamic quizzes.
 
 
@@ -162,3 +163,7 @@ See `js/slickQuiz-config.js`
 Note: `select_any` is used if there is more than one true answer and when submitting any single true answer is considered correct.  (Select ANY that apply vs. Select ALL that apply)
 
 Created by [Julie Cameron](http://juliecameron.com) while previously employed at [Quicken Loans](http://quickenloans.com), Detroit, MI
+=======
+stereotypecelona
+================
+>>>>>>> 94f00bad1f85fa2a15b726b7261d08375eca1fd0
