@@ -1,53 +1,74 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta content="text/html; charset=utf-8" http-equiv="content-type">
 
-        <title>Stereotypecelona</title>
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
-        <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-        <link href="../components/bootstrap/dist/css/bootstrap.css" media="screen" rel="stylesheet" type="text/css">
-        <link href="css/slickQuiz.css" media="screen" rel="stylesheet" type="text/css">
-        <link href="css/master.css" media="screen" rel="stylesheet" type="text/css">
-    </head>
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type">
+    <title>Stereotypecelona - Quiz</title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../components/bootstrap/dist/css/bootstrap.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="css/popathon.css" media="screen" rel="stylesheet" type="text/css">
+</head>
 
-    <body id="slickQuiz">
-        
-        <div class="bcn-quiz">
-            <h1 class="quizName"><!-- where the quiz name goes --></h1>
+<body id="slickQuiz">
+    <audio id="audiotag1" src="audio/fail.mp3" preload="auto"></audio>
+    <div class="bcn-quiz container-fluid">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 quiz-content">
+            <h1 class="quizName pull-left"><!-- where the quiz name goes --></h1>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-link pull-right credits" data-toggle="modal" data-target="#myModal">
+                +info
+            </button>
             <div class="quizArea">
                 <div class="quizHeader">
                     <!-- where the quiz main copy goes -->
-
-                    <a class="button startQuiz" href="#"><i class="fa fa-play"></i> Get Started!</a>
+                    <a class="startQuiz btn btn-primary btn-lg" href="#" role="button">
+                        <i class="fa fa-play"></i> <strong>Get Started!</strong>
+                    </a>
                 </div>
-
                 <!-- where the quiz gets built -->
             </div>
-
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="quizResults">
-                <h3 class="quizScore">You Scored: <span><!-- where the quiz score goes --></span></h3>
-
-                <h3 class="quizLevel"><strong>Ranking:</strong> <span><!-- where the quiz ranking level goes --></span></h3>
-
+                <div class="map-faces"></div>
+                <h2 class="quizScore">You Scored: <span><!-- where the quiz score goes --></span></h2>
+                <p class="quizLevel"><span><!-- where the quiz ranking level goes --></span></p>
                 <div class="quizResultsCopy">
                     <!-- where the quiz result copy goes -->
                 </div>
-                <div class="map-container">
-                    <a href="http://e.infogr.am/horta--guinardo-9" target="_blank" class="link-dist01">Horta-Guinardo</a>
-                    <a href="http://e.infogr.am/ciutat-vella-8898" target="_blank" class="link-dist02">Ciutat Vella</a>
-                    <a href="http://e.infogr.am/eixample-10491878" target="_blank" class="link-dist03">l'Eixample</a>
+                <a class="link-faces btn btn-primary btn-lg" href="faces.html" role="button">
+                    <strong>Show me the data</strong>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">+info</h4>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Stereotypecelona</strong>  s a project developed during the <a href="http://popathon.org/" target="_blank">Popathon (a hackathon for storytellers)</a> that took place in 2014 in Barcelona, during the festival Docs Barcelona.</p>
+                    <p>The beta version was thought, scripted, produced and programmed in 48 hours.</p>
+                    <p><strong>Stereotypecelona</strong> is a project by <a href="https://twitter.com/laia_ros" target="_blank">Laia Ros</a>, <a href="https://twitter.com/mariallobet2" target="_blank">María Llobet</a>, <a href="http://hermesite.net" target="_blank">Hermes Carretero</a> y <a href="https://twitter.com/juanlesta" target="_blank">Juan Lesta</a></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
+    </div>
+    <script src="../components/jquery/dist/jquery.min.js"></script>
+    <script src="../components/bootstrap/js/modal.js"></script>
+    <script src="js/slickQuiz-config.js"></script>
+    <script src="js/slickQuiz.js"></script>
+    <script type="text/javascript" src="../components/d3/d3.min.js"></script>
+    <script type="text/javascript" src="../components/d3-plugins/chernoff/chernoff.js"></script>
+    <script type="text/javascript" src="js/popathon.js"></script>
+</body>
 
-        <script src="../components/jquery/dist/jquery.min.js"></script>
-        <script src="../components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-        <script src="js/jquery.sparkline.min.js"></script>
-        <script src="js/slickQuiz-config.js"></script>
-        <script src="js/slickQuiz.js"></script>
-        <script src="js/master.js"></script>
-        <script src="js/popathon.js"></script>
-    </body>
 </html>
