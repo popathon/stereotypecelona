@@ -30,13 +30,13 @@
                 nameTemplateText:  '<span>Quiz: </span>%name',
                 skipStartButton: false,
                 numberOfQuestions: null,
-                randomSortQuestions: false,
+                randomSortQuestions: true,
                 randomSortAnswers: false,
-                preventUnanswered: false,
+                preventUnanswered: true,
                 perQuestionResponseMessaging: true,
                 completionResponseMessaging: false,
                 displayQuestionCount: true,   // Deprecate?
-                displayQuestionNumber: true,  // Deprecate?
+                displayQuestionNumber: false,  // Deprecate?
                 animationCallbacks: { // only for the methods that have jQuery animations offering callback
                 	setupQuiz: function () {},
                 	startQuiz: function () {},
@@ -208,7 +208,7 @@
                 }
 
                 // Setup questions
-                var quiz  = $('<ol class="' + questionGroupClass + '"></ol>'),
+                var quiz  = $('<ul class="' + questionGroupClass + '"></ul>'),
                     count = 1;
 
                 // Loop through questions object
@@ -219,11 +219,11 @@
                         var questionHTML = $('<li class="' + questionClass +'" id="question' + (count - 1) + '"></li>');
 
                         if (plugin.config.displayQuestionCount) {
-                            questionHTML.append('<div class="' + questionCountClass + '">' +
+                            questionHTML.append('<h6 class="text-uppercase ' + questionCountClass + '">' +
                                 plugin.config.questionCountText
                                     .replace('%current', '<span class="current">' + count + '</span>')
                                     .replace('%total', '<span class="total">' +
-                                        questionCount + '</span>') + '</div>');
+                                        questionCount + '</span>') + '</h6>');
                         }
 
                         var formatQuestion = '';
@@ -233,7 +233,7 @@
                         } else {
                             formatQuestion = question.q;
                         }
-                        questionHTML.append('<h3 class="question-text">' + formatQuestion + '</h3>');
+                        questionHTML.append('<h1 class="question-text">' + formatQuestion + '</h1>');
                         
                         var videoQuestion = '';
                         if (plugin.config.displayQuestionNumber) {
@@ -242,8 +242,7 @@
                         } else {
                             videoQuestion = question.v;
                         }
-                        // questionHTML.append('<iframe id="video" src="' + videoQuestion + '" frameborder="0" allowfullscreen></iframe>');
-                        questionHTML.append('<video id="video_question'+ (count - 1) +'" class="video-js vjs-default-skin" src="'+ videoQuestion +'" controls type="video/mp4"/></video>');
+                        questionHTML.append('<video fullscreen="true" id="video_question'+ (count - 1) +'" class="faces-video video-js vjs-default-skin" src="'+ videoQuestion +'" controls type="video/mp4"/></video>');
 
                         // Count the number of true values
                         var truths = 0;
@@ -280,7 +279,7 @@
 
                                 var optionLabel = '<label for="' + optionId + '">' + answer.option + '</label>';
 
-                                var answerContent = $('<li></li>')
+                                var answerContent = $('<li class=""></li>')
                                     .append(input)
                                     .append(optionLabel);
                                 answerHTML.append(answerContent);
@@ -308,10 +307,10 @@
 
                         // If we're not showing responses per question, show next question button and make it check the answer too
                         if (!plugin.config.perQuestionResponseMessaging) {
-                            questionHTML.append('<a href="#" class="btn btn-default btn-block ' + nextQuestionClass + ' ' + checkAnswerClass + '">' + plugin.config.nextQuestionText + '</a>');
+                            questionHTML.append('<a href="#" class="btn btn-primary btn-lg ' + nextQuestionClass + ' ' + checkAnswerClass + '">' + plugin.config.nextQuestionText + '</a>');
                         } else {
-                            questionHTML.append('<a href="#" class="btn btn-default btn-block ' + nextQuestionClass + '">' + plugin.config.nextQuestionText + '</a>');
-                            questionHTML.append('<a href="#" class="btn btn-primary ' + checkAnswerClass + '">' + plugin.config.checkAnswerText + '</a>');
+                            questionHTML.append('<a href="#" class="btn btn-primary btn-lg ' + nextQuestionClass + '">' + plugin.config.nextQuestionText + '</a>');
+                            questionHTML.append('<a href="#" class="btn btn-primary btn-lg ' + checkAnswerClass + '">' + plugin.config.checkAnswerText + '</a>');
                         }
 
                         // Append question & answers to quiz
@@ -338,6 +337,7 @@
 
             // Starts the quiz (hides start button and displays first question)
             startQuiz: function(options) {
+                $(".quizDescription").hide();
             	var key, keyNotch, kN;
             	key = internal.method.getKey (1); // how many notches == how many jQ animations you will run
             	keyNotch = internal.method.getKeyNotch; // a function that returns a jQ animation callback function
@@ -422,12 +422,14 @@
                 for (i in answers) {
                     if (answers.hasOwnProperty(i)) {
                         var answer = answers[i];
-
                         if (answer.correct) {
+                            console.log(answer);
                             trueAnswers.push(parseInt(i, 10));
                         }
                     }
                 }
+
+
 
                 // NOTE: Collecting answer index for comparison aims to ensure that HTML entities
                 // and HTML elements that may be modified by the browser / other scrips match up
@@ -449,6 +451,8 @@
 
                 if (correctResponse) {
                     questionLI.addClass(correctClass);
+                } else {
+                    play_single_sound();
                 }
 
                 // Toggle appropriate response (either for display now and / or on completion)
@@ -668,9 +672,6 @@
             // Bind "next" buttons
             $(_element + ' ' + _nextQuestionBtn).on('click', function(e) {
                 e.preventDefault();
-
-                // console.log(count);
-                //console.log(e);
                 videoTarget = e.target.parentElement.id;
                 videoTargetCurrent = "#video_" + e.target.parentElement.id;
                 videoTargetPlus = parseInt(videoTarget.charAt(videoTarget.length-1)) + 1;
@@ -679,13 +680,12 @@
                 
                 console.log(nextVideoTarget);
 
-                if (nextVideoTarget == "#video_question3"){ // change id for last step number
+                if (nextVideoTarget == "#video_question8"){ // change id for last step number
                     $(videoTargetCurrent)[0].pause();
                 } else {
                     $(videoTargetCurrent)[0].pause();
                     $(nextVideoTarget)[0].play();
                 }
-
 
                 plugin.method.nextQuestion(this, {
                     callback: plugin.config.animationCallbacks.nextQuestion
